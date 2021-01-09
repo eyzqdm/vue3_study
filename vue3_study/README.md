@@ -18,3 +18,22 @@
     methods中可以访问setup提供的属性和方法, 但在setup方法中不能访问data和methods
 
     setup不能是一个async函数: 因为返回值不再是return的对象, 而是promise, 模板看不到return对象中的属性数据
+
+关于生命周期
+  大部分2.x中的生命周期钩子都可以在3中使用，区别时是
+
+ 1. 3中的setup可以替代2.x中created和beforeCreated
+ 2. 2.x中的beforeDestroy和destroyed这两个生命周期回调已经在vue3中改成beforeUnmount,unmounted
+ 3. 3中的生命周期是composition api 要在其中写回调函数
+
+如
+ onMounted(()=>{
+      console.log('3.0中的onMounted')
+   })
+
+注意 2.x的生命周期钩子在setup外部写，3.x的生命周期在setup内部写
+
+###自定义hooks与普通工具函数的区别 hooks一般以use开头
+自定义hooks与混入mixin类似 像一段vue代码段 会使用到ref reactive 各种工具库如axios等
+
+泛型的使用
