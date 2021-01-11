@@ -1,6 +1,7 @@
 <template>
   <h3>{{msg}}</h3>
   <button @click="change">change</button>
+  <button @click="this.say()">say</button>
 </template>
 
 <script>
@@ -8,6 +9,7 @@ export default {
   props: ['msg'],
   setup (props, { attrs, emit, slots }) {
     console.log(props, attrs, emit, slots)
+    // console.log(this) // undefined
     /*
     props参数,是一个对象,里面有父级组件向子级组件传递的数据,并且是在子级组件中使用**props**接收到的所有的属性
     包含props配置声明且传入了的所有属性的对象
@@ -19,8 +21,24 @@ export default {
       emit('change')
     }
 
+    function say () {
+      console.log('123')
+    }
+
     return {
-      change
+      change,
+      say
+    }
+  },
+  data () {
+    return {
+      name: 'xiaom'
+    }
+  },
+  methods: {
+    foo () {
+      console.log(this)
+      this.say()
     }
   }
 }

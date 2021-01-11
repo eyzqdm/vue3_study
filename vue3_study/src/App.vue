@@ -6,6 +6,7 @@
      <button @click="addObj">logobj</button>
      <Child :msg="msg" :msg1="msg1" @change="changMsg" />
      <Computed />
+     <Refs />
   </div>
 </template>
 
@@ -13,7 +14,8 @@
 import { ref } from 'vue'
 import Child from './components/Child.vue'
 import Computed from './components/ComputedAndWatch.vue'
-import useRequest from './hooks/useRequest'
+// import useRequest from './hooks/useRequest'
+import Refs from './components/toRefs.vue'
 // 定义接口,约束api返回数据的类型
 interface AddressData {
   id: number;
@@ -51,10 +53,10 @@ export default {
     通过代理对象添加/删除属性也是响应式的。
      */
 
-    const { loading, data, errorMsg } = useRequest<ProductsData[]>(
+    /* const { loading, data, errorMsg } = useRequest<ProductsData[]>(
       'url'
-    ) // 获取数组数据
-    if (data.value) console.log(data.value.length)
+    ) // 获取数组数据 */
+    // if (data.value) console.log(data.value.length)
     return {
       num,
       obj,
@@ -62,15 +64,13 @@ export default {
       msg,
       msg1,
       addObj,
-      changMsg,
-      loading,
-      data,
-      errorMsg
+      changMsg
     }
   },
   components: {
     Child,
-    Computed
+    Computed,
+    Refs
   }
 }
 </script>

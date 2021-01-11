@@ -2,6 +2,11 @@
   1.setup在beforeCreate生命周期回调之前执行,且只执行一次
    因此setup在执行的时,当前的组件实例还没有创建出来,也就意味着:不能使用this。
    this是undefined,说明,就不能通过this再去调用data/computed/methods/props中的相关内容了
+
+   这里不能使用this是指不能直接使用this，可以间接使用。即可以在setup定义的方法中使用this,当模板或methods中
+   有使用到该方法时，实例早已创建，this可以正常使用。要注意的是当setup中定义的函数xxx使用了this 则使用该函数时(无论时模板中还是方法中)都要加this. 因为要绑定this指向。函数内部的this指向是在被调用时确定的,指向调用该函数的实例。this.XXX 可以保证xxx调用时内部this指向当前实例。直接写函数名字，就像使用methods中定义的函数那样是不行的。那样就是全局调用，在严格模式下this指向unefined。
+
+
    其实所有的composition API相关回调函数中也都不可以。
    如果setup中定义的函数中需要操作组件实例（如表单实例的校验方法），则需要一个获取组件实例的函数。而不是使用this.
 
@@ -33,7 +38,10 @@
 
 注意 2.x的生命周期钩子在setup外部写，3.x的生命周期在setup内部写
 
-###自定义hooks与普通工具函数的区别 hooks一般以use开头
+关于自定义hooks与普通工具函数的区别 hooks一般以use开头
 自定义hooks与混入mixin类似 像一段vue代码段 会使用到ref reactive 各种工具库如axios等
 
-泛型的使用
+***v3泛型的使用 为什么不能reactive初始化一个符合泛型约束的数据
+
+
+torefs 
