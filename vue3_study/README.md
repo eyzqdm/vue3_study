@@ -44,4 +44,34 @@
 ***v3泛型的使用 为什么不能reactive初始化一个符合泛型约束的数据
 
 
-torefs 
+关于 torefs 把一个响应式对象转换成普通对象，该普通对象的每个 property 都是一个 ref 什么意思?
+当我们想把一个响应式对象分解使用,即把某个属性结构出来使用，这样就不用每次obj.xxx使用了。
+但会有个问题，分解出来的属性不是响应式的，当我们修改这个结构出来的属性时，原来对象的这个属性不会改变。
+这时候就要用到torefs，他会把对象的每个属性变成ref对象。 const { name, age } = toRefs(state)
+
+注意要与toref区别开来
+
+关于 shallowReactive 与 shallowRef
+shallowReactive 浅响应式 只把第一层数据响应化
+shallowRef 不能将对象响应化
+
+关于深只读和浅只读 readonly 与 shallowReadonly
+
+关于toRaw 与 markRaw 去响应化 不同的是toraw是对已经响应化的对象使用的
+toRaw 不改变原对象的响应式，返回值是将一个已经响应化的对象去响应化。用于临时读取，访问不会被代理/跟踪，写入时也不会触发界面更新。
+ const user = toRaw(state)
+ user.name += '==' 界面无更新
+markRaw 标记一个对象，使其永远不会转换为代理。返回对象本身
+
+toRef 将一个响应式对象的属性变为ref对象
+
+customRef 自定义ref 对数据的get和set进行劫持 自定义一些行为 input框的onchange事件 每次输入都会触发
+可以使用该方法进行节流。该方法传入一个回调，回调的两个参数方法分别是 通知vue追踪数据。通知vue更新界面。
+
+provide 与 inject 跨代传值
+爷 provide('color',color)
+孙 const color = inject('color')
+
+动态引入组件
+
+Suspense组件 包裹住异步组件(组件中用到异步数据的组件) 在异步组件加载完毕之前做一些事 作用类似于骨架屏

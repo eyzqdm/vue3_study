@@ -57,7 +57,6 @@ export default {
       userName.first = names[0]
       userName.last = names[1]
     })
-
     // watch监听多个数据
     watch([() => userName.first, () => userName.last], () => {
       // 这里的代码就没有执行,fullName3是响应式的数据,但是,user.firstName,user.lastName不是响应式的数据

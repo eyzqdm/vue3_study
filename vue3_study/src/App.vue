@@ -1,4 +1,5 @@
 <template>
+<h2 @click="add">addd</h2>
   <div id="nav">
      <h3>{{num}}</h3>
      <h2>{{obj.age}}</h2>
@@ -8,6 +9,7 @@
      <Computed />
      <Refs />
   </div>
+  <router-view />
 </template>
 
 <script lang="ts">
